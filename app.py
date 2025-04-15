@@ -47,4 +47,6 @@ def update_song(id):
     return redirect('/')
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()  # This will create the table(s) if not exist
     app.run(debug=True)
