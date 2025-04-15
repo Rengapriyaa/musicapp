@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Music Library</h1>
+  <form action="/add" method="POST">
+    <input name="title" placeholder="Title" required>
+    <input name="artist" placeholder="Artist" required>
+    <input name="album" placeholder="Album">
+    <input name="genre" placeholder="Genre">
+    <button type="submit">Add Song</button>
+  </form>
+  
+  <ul>
+    {% for song in songs %}
+      <li>
+        {{ song.title }} - {{ song.artist }} ({{ song.album }}, {{ song.genre }})
+        <form action="/update/{{ song.id }}" method="POST" style="display:inline;">
+          <input name="title" value="{{ song.title }}">
+          <input name="artist" value="{{ song.artist }}">
+          <input name="album" value="{{ song.album }}">
+          <input name="genre" value="{{ song.genre }}">
+          <button>Update</button>
+        </form>
+        <a href="/delete/{{ song.id }}">Delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
